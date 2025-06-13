@@ -40,6 +40,7 @@
 			</div>
 		</c:if>
 	</div>
+
 	<c:if test="${ not empty errorMessages }">
 		<div class="errorMessages">
 			<ul>
@@ -47,6 +48,7 @@
 					<li><c:out value="${errorMessage}" />
 				</c:forEach>
 			</ul>
+
 		</div>
 		<c:remove var="errorMessages" scope="session" />
 	</c:if>
@@ -56,14 +58,20 @@
 		～ <input type="date" id="end" name="end" value="${end}"> <input
 			type="submit" value="絞り込み">
 	</form>
-	<div class="search">
-		<form action="./" action="get">
-			つぶやき： <input type="text" name="word" value="${searchWord}" /> <input
-				type="radio" name="radiobutton" value="contain" checked="checked">
-			を含む <input type="submit" value="検索">
-		</form>
-	</div>
+
+	<div class = "search">
+	<form action = "./" action = "get">
+		つぶやき：
+		<input type = "text" name ="word" value = "${searchWord}"/>
+		<input type="radio" name="radiobutton" value="startFrom" <c:if test = "${startFrom}"> checked="checked"</c:if>>
+		から始まる
+		<input type="radio" name="radiobutton" value="contain" <c:if test = "${!startFrom}"> checked="checked"</c:if>>
+		を含む
+		<input type= "submit" value = "検索">
+	</form>
+</div>
 	<br />
+
 	<div class="form-area">
 		<c:if test="${ isShowMessageForm }">
 			<form action="message" method="post">
@@ -78,11 +86,14 @@
 		<c:forEach items="${messages}" var="message">
 			<div class="message">
 				<div class="account-name">
-					<span class="account"> <a
-						href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
-								value="${message.account}" />
-					</a>
-					</span> <span class="name"><c:out value="${message.name}" /></span>
+					<span class="account">
+						<a href="./?user_id=<c:out value="${message.userId}"/> ">
+							<c:out value="${message.account}" />
+						</a>
+					</span>
+					<span class="name">
+						<c:out value="${message.name}" />
+					</span>
 				</div>
 				<div class="text">
 					<pre>
